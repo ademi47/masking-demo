@@ -1,0 +1,33 @@
+### Masked profile - what the browser receives
+GET http://localhost:5219/api/v1/members/me
+
+### Unmasked - privileged role (writes an audit line to the API console)
+GET http://localhost:5219/api/v1/members/me
+X-Demo-Role: officer
+
+### DEMO ONLY - the "before" payload, straight off the entity
+GET http://localhost:5219/api/v1/members/me/unmasked-demo
+
+### CSV export - masked via Mask.Apply, not the JSON serialiser
+GET http://localhost:5219/api/v1/members/me/export
+
+### Safe write - no NRIC in the request DTO at all
+PUT http://localhost:5219/api/v1/members/me/profile
+Content-Type: application/json
+
+{
+  "email": "new.email@example.com",
+  "mobileNumber": "98887777",
+  "mailingAddress": "Blk 456 Bishan St 22, #11-03, Singapore 570456"
+}
+
+### Round-trip a masked NRIC - expect HTTP 400 from RejectMaskedValuesFilter
+PUT http://localhost:5219/api/v1/members/me/profile-unsafe-demo
+Content-Type: application/json
+
+{
+  "nric": "S****567D",
+  "email": "weiming.tan@example.com",
+  "mobileNumber": "91234567",
+  "mailingAddress": "Blk 123 Ang Mo Kio Ave 6"
+}

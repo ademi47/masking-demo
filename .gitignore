@@ -1,0 +1,18 @@
+# .NET
+masking-demo-backend/**/bin/
+masking-demo-backend/**/obj/
+*.user
+
+# Angular / Node
+masking-demo-frontend/node_modules/
+masking-demo-frontend/dist/
+masking-demo-frontend/.angular/
+
+# Editor / OS
+.vs/
+.vscode/
+Thumbs.db
+.DS_Store
+
+# Claude Code local-only settings
+.claude/settings.local.json
